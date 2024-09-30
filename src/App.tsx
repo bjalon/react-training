@@ -2,21 +2,24 @@ import './App.css'
 import {useState, useRef} from "react";
 
 
-
 export default () => {
-    const [valueUseState, setValueUseState] = useState<number>(0);
-    const valueUseRef = useRef(0);
+    const [message, setMessage] = useState<string>();
+    const prenomTypedValue = useRef(null);
+    const nomTypedValue = useRef(null);
 
-    function incrementUseRef() {
-        valueUseRef.current += 1
-    }
-
-    function incrementUseState() {
-        setValueUseState(valueUseState + 1)
+    const updateMessage = ()=> {
+        const prenom = prenomTypedValue.current.value
+        const nom = nomTypedValue.current.value
+        setMessage(prenom + " " + nom);
     }
 
     return <>
-        <button onClick={incrementUseRef}>{valueUseRef.current}</button>
-        <button onClick={incrementUseState}>{valueUseState}</button>
+        <input ref={prenomTypedValue} onChange={updateMessage}/>
+        <br/>
+        <br/>
+        <input ref={nomTypedValue} onChange={updateMessage}/>
+        <br/>
+        <br/>
+        <h1>{message}</h1>
     </>
 }
