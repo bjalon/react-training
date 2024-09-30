@@ -1,7 +1,8 @@
 import "./App.css";
-import Person from "./components/Person.tsx";
+import PersonComponent from "./components/PersonComponent.tsx";
+import Person from "./models/Person.ts";
 
-const persons = [
+const persons: Person[] = [
     {prenom: "Brad", nom: "Pitt"},
     {prenom: "George", nom: "Clooney"},
 ]
@@ -14,7 +15,7 @@ export default function App() {
     return <>
         {
             persons.map((person, index) =>
-                <Person key={index} index={index} prenom={person.prenom} nom={person.nom} qui={qui}/>)
+                <PersonComponent key={index} index={index} persons={person} qui={qui}/>)
         }
     </>
 }
