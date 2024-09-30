@@ -22,8 +22,16 @@ export default function App() {
     });
 
     const calcul = () => {
-        if (poids.current == null || taille.current == null || poids.current.value.length <= 0 || taille.current.value.length <= 0)
+        if (poids.current == null || taille.current == null || poids.current.value.length <= 0 || taille.current.value.length <= 0) {
+            setInfo({
+                imc: "",
+                tranche: "",
+                classe: "",
+                kilo: "",
+                poids: "",
+            });
             return
+        }
 
         const imc: number =
             parseFloat(poids.current.value) / (parseFloat(taille.current.value) * parseFloat(taille.current.value));
