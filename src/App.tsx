@@ -1,14 +1,17 @@
-import { useState } from "react";
+import {useRef, useState} from "react";
 import "./App.css";
 interface Iinfo {
     imc: string;
     tranche: string;
     classe: string;
     kilo: string;
-    kilo: string;
     poids: string;
 }
 export default function App() {
+
+    const taille = useRef(null)
+    const poids = useRef(null)
+
     //let message = 'Bonjour';
     const [info, setInfo] = useState<Iinfo>({
         imc: "",
@@ -17,13 +20,13 @@ export default function App() {
         kilo: "",
         poids: "",
     });
-    const calcul = (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        const poids: string = event.target.poids.value;
-        const taille: string = event.target.taille.value;
-        event.target.reset(); // vider champ input
+
+    const calcul = () => {
+        if (poids.current == null || taille.current == null || poids.current.value.length <= 0 || taille.current.value.length <= 0)
+            return
+
         const imc: number =
-            parseFloat(poids) / (parseFloat(taille) * parseFloat(taille));
+            parseFloat(poids.current.value) / (parseFloat(taille.current.value) * parseFloat(taille.current.value));
         let info: Iinfo = {
             imc: "",
             tranche: "",
@@ -31,17 +34,18 @@ export default function App() {
             kilo: "",
             poids: "",
         };
+
         if (imc > 25) {
-            const poidsIdeal: number = 25 * parseFloat(taille) * parseFloat(taille);
-            const kilo: number = poidsIdeal - parseFloat(poids);
+            const poidsIdeal: number = 25 * parseFloat(taille.current.value) * parseFloat(taille.current.value);
+            const kilo: number = poidsIdeal - parseFloat(poids.current.value);
             info.kilo = kilo.toFixed(1);
             info.poids = poidsIdeal.toFixed(1);
         }
         info.imc = imc.toFixed(1);
         if (imc < 18.5) {
-            const poidsIdeal = 18.5 * parseFloat(taille) * parseFloat(taille);
+            const poidsIdeal = 18.5 * parseFloat(taille.current.value) * parseFloat(taille.current.value);
             info.tranche = "maigreur";
-            const kilo: number = poidsIdeal - parseFloat(poids);
+            const kilo: number = poidsIdeal - parseFloat(poids.current.value);
             //info.kilo = '+'+kilo.toFixed(1);
             info.kilo = `+ ${kilo.toFixed(1)}`;
             info.poids = poidsIdeal.toFixed(1);
@@ -77,27 +81,27 @@ export default function App() {
                 </div>
             </nav>
             <div className="container">
-                <form method="post" onSubmit={calcul}>
+                <form method="post">
                     <div className="row">
                         <div className="col-4 pt-4">
                             <h1 className="h3">Calculer votre IMC</h1>
                             <input
+                                ref={poids}
                                 aria-label="Poids"
                                 className="form-control"
                                 placeholder="Poids en kg."
                                 name="poids"
+                                onChange={calcul}
                             />
 
                             <input
+                                ref={taille}
                                 aria-label="Taille"
                                 className="form-control mt-3"
                                 placeholder="taille en m."
                                 name="taille"
+                                onChange={calcul}
                             />
-
-                            <button className="btn btn-success my-3 col-12" type="submit">
-                                <i className="fa-solid fa-weight-scale"></i>
-                            </button>
                             {info.imc.length > 0 && (
                                 <>
                                     <div className={`alert mt-4 alert-${info.classe}`} role="alert">
