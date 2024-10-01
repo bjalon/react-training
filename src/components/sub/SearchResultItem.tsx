@@ -5,7 +5,6 @@ interface SearchResultItemProps {
 }
 
 export default function SearchResultItem(props: SearchResultItemProps) {
-    console.log(props.info);
     return <tr>
         <td>{props.info.Title}</td>
         <td>{props.info.Year}</td>

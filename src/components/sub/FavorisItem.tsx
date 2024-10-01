@@ -29,7 +29,7 @@ export default function FavorisItem(props: FavorisItemProps) {
             />
         </td>
         <td className="align-middle">
-            <button className="btn btn-outline-danger" onClick={() => props.onRemove(props.info.imdbID)}>
+            <button className="btn btn-outline-danger" onClick={() => props.onRemove(props.info.cpId)}>
                 <i className="fa fa-trash"></i>
             </button>
         </td>

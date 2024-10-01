@@ -16,7 +16,7 @@ export default function SearchComponent(props: SearchComponentProps) {
     const currentTypedData = useRef(null)
 
     const getData = async (searchCriteria: string) => {
-        const url = `${Constants.baseUrl}&s=${encodeURIComponent(searchCriteria)}`
+        const url = `${Constants.imdbBaseUrl}&s=${encodeURIComponent(searchCriteria)}`
         const response = await fetch(url);
         const myData = {...data}
         const jsonResponse = await response.json();
