@@ -26,7 +26,7 @@ export default function App() {
     useEffect(() => {
         if (bothSelected.current) {
             bothSelected.current = false
-            setTimeout(retry, 1000)
+            setTimeout(() => retry(), 1000)
         }
     }, [bothSelected.current])
 
@@ -107,10 +107,16 @@ export default function App() {
         </div>
         <br/><br/>
         <div id="demo">
-            <button id="btnTricher" disabled={state.firstSelectedIndex === -1 || state.secondSelectedIndex !== -1}
-                    onClick={handleTricher}>Tricher
+            <button
+                id="btnTricher"
+                disabled={state.firstSelectedIndex === -1 || state.secondSelectedIndex !== -1}
+                onClick={handleTricher}>Tricher
             </button>
-            <button id="btnTricher" onClick={retry}>Retry</button>
+            <button
+                id="btnTricher"
+                onClick={retry}
+            >Retry
+            </button>
         </div>
     </>
 }
