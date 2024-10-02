@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useState} from "react";
 import Vip from "../models/Vip.ts";
 
 const newVip = {
@@ -9,12 +9,14 @@ const newVip = {
 };
 
 interface VipCreationFormComponentProps {
+    vip: Vip | null;
     onCreate: (vip: Vip) => void;
 }
 
 export function VipCreationFormComponent(props: VipCreationFormComponentProps) {
 
-    const [vip, updateVip] = useState<Vip>({...newVip})
+    console.log("aaa" + props.vip)
+    const [vip, updateVip] = useState<Vip>(props.vip || {...newVip})
 
     function handleCreate() {
         props.onCreate(vip)
