@@ -1,5 +1,5 @@
 import "../App.css";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import Constants from "../tools/Constants.ts";
 import {VipCreationFormComponent} from "../components/VipCreationFormComponent.tsx";
 import Vip from "../models/Vip.ts";
@@ -9,6 +9,7 @@ import {FooterComponent} from "../components/FooterComponent.tsx";
 
 export default function Edition() {
     const {id} = useParams()
+    let count = useRef(0)
 
     useEffect(() => {
         initVip()
@@ -22,6 +23,7 @@ export default function Edition() {
         const jsonResponse = await response.json();
 
         if (jsonResponse) {
+            count.current += 1;
             updateVip(jsonResponse);
         } else {
             console.log(`vip id not found ${id}`);
@@ -51,7 +53,7 @@ export default function Edition() {
             <div className="row">
                 <div className="col-8">
                     <div className="bg-gris p-4">
-                        <VipCreationFormComponent vip={vip || null} onCreate={handleUpdate}/>
+                        <VipCreationFormComponent key={count.current} vip={vip || null} onCreate={handleUpdate}/>
                     </div>
                 </div>
 

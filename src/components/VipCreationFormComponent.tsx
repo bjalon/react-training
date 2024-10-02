@@ -1,12 +1,5 @@
-import {useState} from "react";
 import Vip from "../models/Vip.ts";
-
-const newVip = {
-    id: "",
-    firstname: "",
-    name: "",
-    isPresent: null,
-};
+import {useForm} from "react-hook-form"
 
 interface VipCreationFormComponentProps {
     vip: Vip | null;
@@ -14,45 +7,37 @@ interface VipCreationFormComponentProps {
 }
 
 export function VipCreationFormComponent(props: VipCreationFormComponentProps) {
+    console.log(props.vip)
+    const {register, handleSubmit, formState: {errors},} = useForm({defaultValues: props.vip || {name: 'toto', isPresent: null}});
 
-    console.log("aaa" + props.vip)
-    const [vip, updateVip] = useState<Vip>(props.vip || {...newVip})
+    return <>
+        <form onSubmit={handleSubmit((data) => props.onCreate(data))}>
 
-    function handleCreate() {
-        props.onCreate(vip)
-        updateVip({...newVip})
-    }
-
-    return <div className="row">
-        <div className="col-4">
-            <input
-                aria-label="Prenom"
-                className="form-control"
-                placeholder="prenom"
-                onChange={(elt) => {
-                    const updatedVip = {...vip}
-                    updatedVip.firstname = elt.target.value
-                    updateVip(updatedVip)
-                }}
-            />
-        </div>
-        <div className="col-4">
-            <input
-                aria-label="Nom"
-                className="form-control"
-                placeholder="Nom"
-                onChange={(elt) => {
-                    const updatedVip = {...vip}
-                    updatedVip.name = elt.target.value
-                    updateVip(updatedVip)
-                }}
-            />
-        </div>
-
-        <div className="col-1">
-            <button className="btn btn-success" onClick={handleCreate}>
-                <i className="fa fa-plus"></i>
-            </button>
-        </div>
-    </div>;
+            <div className="row">
+                <div className="col-4">
+                    {errors.firstname && <span>Vous devez ecrire le prenom </span>}
+                    <input
+                        aria-label="Prenom"
+                        className="form-control"
+                        placeholder="prenom"
+                        {...register('firstname', {required: true})}
+                    />
+                </div>
+                <div className="col-4">
+                    {errors.name && <span>Vous devez ecrire le nom </span>}
+                    <input
+                        aria-label="Nom"
+                        className="form-control"
+                        placeholder="Nom"
+                        {...register('name', {required: true})}
+                    />
+                </div>
+                <div className="col-1">
+                    <button className="btn btn-success" type="submit">
+                        <i className="fa fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </>
 }
