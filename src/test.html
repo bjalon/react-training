@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Postman Interface</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+<!-- Navbar -->
+<nav class="bg-white shadow p-4">
+    <div class="container mx-auto flex justify-between items-center">
+        <div class="text-lg font-bold">API Network</div>
+        <input type="text" placeholder="Search Postman" class="border rounded-lg p-2">
+        <div class="flex space-x-4 items-center">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Invite</button>
+            <div class="w-10 h-10 rounded-full bg-gray-300"></div>
+        </div>
+    </div>
+</nav>
+
+<div class="flex h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-50 shadow-md p-4">
+        <div class="text-xl font-semibold mb-4">Collections</div>
+        <ul>
+            <li class="mb-2">
+                <span class="text-gray-500 text-xs">core-banking</span>
+                <ul class="ml-4">
+                    <li class="text-green-500">GET wallets</li>
+                    <li>POST pendingOperations</li>
+                    <li>POST debts</li>
+                </ul>
+            </li>
+            <li>
+                <span class="text-gray-500 text-xs">countries</span>
+            </li>
+        </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 p-6">
+        <div class="bg-white shadow-md rounded-lg p-6">
+
+            <!-- Header and Tabs -->
+            <div class="flex justify-between items-center mb-4">
+                <div>
+                    <h1 class="text-xl font-semibold">GET wallets</h1>
+                    <p class="text-sm text-gray-500">core-banking</p>
+                </div>
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Save</button>
+            </div>
+
+            <!-- Request URL -->
+            <div class="mb-4">
+                <label class="block font-medium mb-2">Request URL</label>
+                <div class="flex items-center">
+                    <select class="border p-2 rounded-l-lg">
+                        <option>GET</option>
+                        <option>POST</option>
+                    </select>
+                    <input type="text" value="{{HTTP}}://{{SERVER_HOSTNAME}}/wallets" class="border p-2 w-full rounded-r-lg">
+                </div>
+            </div>
+
+            <!-- Headers Section -->
+            <div>
+                <h2 class="font-medium mb-2">Headers</h2>
+                <div class="grid grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium">Key</label>
+                        <input type="text" value="Tracking-Id" class="border p-2 w-full rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Value</label>
+                        <input type="text" value="bf8963d8-bad7-4102-a15f-52bf559c9eb2" class="border p-2 w-full rounded-lg">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium">Description</label>
+                        <input type="text" class="border p-2 w-full rounded-lg" placeholder="Description">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Send Button -->
+            <div class="mt-6">
+                <button class="bg-blue-500 text-white px-4 py-2 rounded-lg">Send</button>
+            </div>
+
+        </div>
+    </main>
+
+</div>
+
+</body>
+</html>
